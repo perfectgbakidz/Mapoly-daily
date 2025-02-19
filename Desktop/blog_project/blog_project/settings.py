@@ -55,14 +55,15 @@ LOGOUT_REDIRECT_URL = '/'
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-^w5e&o_(fa2!^+jqdnyvxw$iwe6_mr+^dgml@td_x_1#com=so'
+SECRET_KEY = os.getenv("SECRET_KEY", "django-insecure-^w5e&o_(fa2!^+jqdnyvxw$iwe6_mr+^dgml@td_x_1#com=so")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
 
 
+LOGGING_CONFIG = None 
 # Application definition
 
 INSTALLED_APPS = [
