@@ -32,38 +32,7 @@ EMAIL_HOST_USER = 'ajaratfabiyi2001@gmail.com'  # Replace with your Gmail addres
 EMAIL_HOST_PASSWORD = 'hvog bzrb vlbb ezbc'  # Use an App Password, not your real password
 
 
-if os.getenv("RAILWAY_ENVIRONMENT"):
-    DEBUG = False
-    ALLOWED_HOSTS = ["mapolydaily.up.railway.app", "127.0.0.1"]
-    DATABASES['default']['NAME'] = "/app/db.sqlite3"  # Store SQLite in Railway's /app/ folder
 
-
-
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
-
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-LOGIN_REDIRECT_URL = '/dashboard/'
-LOGOUT_REDIRECT_URL = '/'
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv("SECRET_KEY", "django-insecure-^w5e&o_(fa2!^+jqdnyvxw$iwe6_mr+^dgml@td_x_1#com=so")
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG", "False") == "True"
-
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
-
-
-LOGGING_CONFIG = None 
 # Application definition
 
 INSTALLED_APPS = [
@@ -118,6 +87,39 @@ DATABASES = {
     }
 }
 
+
+if os.getenv("RAILWAY_ENVIRONMENT"):
+    DEBUG = False
+    ALLOWED_HOSTS = ["mapolydaily.up.railway.app", "127.0.0.1"]
+    DATABASES['default']['NAME'] = "/app/db.sqlite3"  # Store SQLite in Railway's /app/ folder
+
+
+
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+LOGIN_REDIRECT_URL = '/dashboard/'
+LOGOUT_REDIRECT_URL = '/'
+
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = os.getenv("SECRET_KEY", "django-insecure-^w5e&o_(fa2!^+jqdnyvxw$iwe6_mr+^dgml@td_x_1#com=so")
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = os.getenv("DEBUG", "False") == "True"
+
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
+
+
+LOGGING_CONFIG = None 
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
