@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 from django.contrib.messages import constants as messages
 import os
+import dj_database_url
 from pathlib import Path
 
 MESSAGE_TAGS = {
@@ -30,7 +31,10 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'ajaratfabiyi2001@gmail.com'  # Replace with your Gmail address
 EMAIL_HOST_PASSWORD = 'hvog bzrb vlbb ezbc'  # Use an App Password, not your real password
 
-
+if os.getenv("RAILWAY_ENVIRONMENT"):
+    DEBUG = False
+    ALLOWED_HOSTS = ["mapolydaily.up.railway.app", "127.0.0.1"]
+    DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=False)
 
 
 
@@ -40,8 +44,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),  
-]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  
 
 
@@ -114,7 +116,7 @@ WSGI_APPLICATION = 'blog_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
