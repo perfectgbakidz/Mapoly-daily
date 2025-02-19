@@ -31,11 +31,11 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'ajaratfabiyi2001@gmail.com'  # Replace with your Gmail address
 EMAIL_HOST_PASSWORD = 'hvog bzrb vlbb ezbc'  # Use an App Password, not your real password
 
+
 if os.getenv("RAILWAY_ENVIRONMENT"):
     DEBUG = False
     ALLOWED_HOSTS = ["mapolydaily.up.railway.app", "127.0.0.1"]
-    DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=False)
-
+    DATABASES['default']['NAME'] = "/app/db.sqlite3"  # Store SQLite in Railway's /app/ folder
 
 
 
@@ -43,13 +43,11 @@ if os.getenv("RAILWAY_ENVIRONMENT"):
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  
-
-
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
 LOGIN_REDIRECT_URL = '/dashboard/'
 LOGOUT_REDIRECT_URL = '/'
 
