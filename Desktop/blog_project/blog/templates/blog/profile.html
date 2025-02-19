@@ -1,0 +1,46 @@
+{% extends "blog/base.html" %}
+{% block content %}
+    <h2>User Profile</h2>
+
+    <p><strong>Username:</strong> {{ user.username }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+
+    <!-- Profile Picture -->
+    <h3>Profile Picture</h3>
+    {% if user.profile.profile_picture %}
+        <img src="{{ user.profile.profile_picture.url }}" alt="Profile Picture" width="150">
+    {% else %}
+        <p>No profile picture uploaded.</p>
+    {% endif %}
+
+    <!-- Upload or Change Profile Picture -->
+    <form method="POST" action="{% url 'update_profile' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="id_profile_picture">Change Profile Picture:</label>
+        <input type="file" name="profile_picture" id="id_profile_picture">
+        <button type="submit">Update Picture</button>
+    </form>
+
+    <!-- Bio Update Form -->
+    <h3>Bio</h3>
+    <p>{{ user.profile.bio }}</p>  <!-- ✅ Displays the updated bio -->
+    
+    <form method="POST" action="{% url 'update_profile' %}">
+        {% csrf_token %}
+        <label for="id_bio">Edit Bio:</label>
+        <textarea name="bio" id="id_bio" rows="4">{{ user.profile.bio }}</textarea>  <!-- ✅ Pre-filled with current bio -->
+        <button type="submit">Update Bio</button>
+    </form>
+
+    <!-- Change Password -->
+    <h3>Change Password</h3>
+    <a href="{% url 'password_change' %}">Change Password</a>
+
+    <!-- User's Blog Posts -->
+    <h3>Your Blog Posts</h3>
+    {% for post in user.blogpost_set.all %}
+        <p><a href="{% url 'blog_detail' post.slug %}">{{ post.title }}</a></p>
+    {% empty %}
+        <p>You have not written any blog posts yet.</p>
+    {% endfor %}
+{% endblock %}

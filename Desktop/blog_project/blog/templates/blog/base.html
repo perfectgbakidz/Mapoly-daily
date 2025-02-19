@@ -1,0 +1,82 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapoly Daily</title>
+    <header class="blog-header">
+        <h1>Mapoly Daily</h1>
+    </header>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+    <!-- Display Messages -->
+    {% if messages %}
+        <div>
+            {% for message in messages %}
+                <p class="{{ message.tags }}">{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <!-- Navigation Bar -->
+    <nav>
+        <ul>
+            <li><a href="{% url 'blog_list' %}">Home</a></li>
+            <li><a href="{% url 'category_posts' slug='tech' %}">Tech</a></li>
+            <li><a href="{% url 'category_posts' slug='lifestyle' %}">Lifestyle</a></li>
+            <li><a href="{% url 'about' %}">About</a></li>
+            <li><a href="{% url 'contact' %}">Contact</a></li>
+            
+            <!-- Show different options for logged-in users -->
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'blog_create' %}">Create Post</a></li>
+                <li><a href="{% url 'user_dashboard' %}">Dashboard</a></li>
+                <li><a href="{% url 'profile' %}">Profile</a></li>
+                <li>
+                    <form action="{% url 'logout' %}" method="POST" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit">Logout</button>
+                    </form>
+                </li>
+            {% else %}
+                <li><a href="{% url 'login' %}">Login</a></li>
+                <li><a href="{% url 'register' %}">Register</a></li>
+            {% endif %}
+        </ul>
+
+        <!-- Search Bar -->
+        <form action="{% url 'search' %}" method="GET">
+            <input type="text" name="q" placeholder="Search...">
+            <button type="submit">Search</button>
+        </form>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <div class="page-container">
+            {% block content %}
+            {% endblock %}
+        </div>
+
+    </main>
+    <footer>
+        <div class="footer-container">
+            <p>&copy; 2025 Mapoly Daily. All Rights Reserved.</p>
+            <ul class="footer-links">
+                <li><a href="{% url 'blog_list' %}">Home</a></li>
+                <li><a href="{% url 'about' %}">About</a></li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>
+            </ul>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

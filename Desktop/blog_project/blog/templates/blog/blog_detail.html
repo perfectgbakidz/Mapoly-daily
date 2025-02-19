@@ -1,0 +1,66 @@
+{% extends "blog/base.html" %}
+{% block content %}
+<div class="blog-post">
+    <h2>{{ post.title }}</h2>
+    <p>By {{ post.author }} | {{ post.created_at|date:"F j, Y" }}</p>
+    
+    {% if post.image %}
+        <img src="{{ post.image.url }}" alt="{{ post.title }}" width="500">
+    {% else %}
+        <p>No image available</p>
+    {% endif %}
+
+    <p>{{ post.content }}</p>
+
+    <!-- Like Button -->
+    <button id="like-btn" data-post-slug="{{ post.slug }}">
+        {% if request.user in post.likes.all %}
+            Unlike
+        {% else %}
+            Like
+        {% endif %}
+    </button>
+    <span id="like-count">{{ post.total_likes }}</span> Likes
+</div>
+    <!-- Comments Section -->
+    <div class="comments-container">
+    <h3>Comments</h3>
+    {% for comment in post.comments.all %}
+        <p><strong>{{ comment.user.username }}</strong>: {{ comment.content }}</p>
+    {% empty %}
+        <p>No comments yet.</p>
+    {% endfor %}
+
+    <!-- Add Comment Form -->
+    {% if user.is_authenticated %}
+    <h3>Add a Comment</h3>
+    <form method="POST" action="{% url 'add_comment' post.slug %}">
+        {% csrf_token %}
+        
+        <label for="id_content">Your Comment:</label>
+        <textarea name="content" id="id_content" rows="4" required></textarea>
+        
+        <button type="submit">Submit Comment</button>
+    </form>
+{% else %}
+    <p><a href="{% url 'login' %}">Log in</a> to comment.</p>
+{% endif %}
+</div>
+    <!-- Like Script -->
+    <script>
+        document.getElementById("like-btn").addEventListener("click", function () {
+            fetch("{% url 'blog_like' post.slug %}", {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": "{{ csrf_token }}",
+                    "Content-Type": "application/json",
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("like-btn").innerText = data.liked ? "Unlike" : "Like";
+                document.getElementById("like-count").innerText = data.total_likes;
+            });
+        });
+    </script>
+{% endblock %}

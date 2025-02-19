@@ -1,0 +1,108 @@
+/* 🌟 Dashboard Container */
+.dashboard-container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 🌟 Header Styles */
+.dashboard-container h2 {
+    text-align: center;
+    color: #007bff;
+    margin-bottom: 15px;
+}
+
+.dashboard-container h3 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* 🌟 Post List Styles */
+.post-list {
+    list-style: none;
+    padding: 0;
+}
+
+.post-list .post-card {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+    transition: 0.3s ease-in-out;
+}
+
+.post-list .post-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.post-list .post-card h4 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.post-list .post-card a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+}
+
+.post-list .post-card a:hover {
+    text-decoration: underline;
+}
+
+/* 🌟 Buttons */
+.btn {
+    display: inline-block;
+    padding: 8px 12px;
+    font-size: 14px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: white;
+    transition: 0.3s;
+}
+
+.btn-edit {
+    background: #28a745;
+}
+
+.btn-edit:hover {
+    background: #218838;
+}
+
+.btn-delete {
+    background: #dc3545;
+}
+
+.btn-delete:hover {
+    background: #c82333;
+}
+
+/* 🌟 Comments Section */
+.comment-list {
+    list-style: none;
+    padding: 0;
+}
+
+.comment-list .comment-card {
+    background: #f1f1f1;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+/* 🌟 Responsive Design */
+@media screen and (max-width: 768px) {
+    .dashboard-container {
+        width: 90%;
+    }
+
+    .post-list .post-card {
+        padding: 12px;
+    }
+}

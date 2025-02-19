@@ -1,0 +1,31 @@
+{% extends "blog/base.html" %}
+{% block content %}
+<div class="recent-post">
+    <h2>Welcome, {{ user.username }}!</h2>
+    <h3>Your Posts</h3>
+    <div class="recent-posts">
+    {% for post in posts %}
+        <div>
+            <h4><a href="{% url 'blog_detail' post.slug %}">{{ post.title }}</a></h4>
+            <p>Status: {{ post.published|yesno:"Published,Draft" }}</p>
+            <a href="{% url 'blog_update' post.slug %}">Edit</a> |
+            <form method="POST" action="{% url 'blog_delete' post.slug %}" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit">Delete</button>
+            </form>
+        </div>
+    {% empty %}
+        <p>You haven't written any posts yet.</p>
+    {% endfor %}
+</div>
+<div class="recent-posts">
+    <h3>Your Comments</h3>
+    <div class="recent-posts"></div>
+    {% for comment in comments %}
+        <p>On <a href="{% url 'blog_detail' comment.post.slug %}">{{ comment.post.title }}</a>: "{{ comment.content }}"</p>
+    {% empty %}
+        <p>You haven't commented on any posts yet.</p>
+    {% endfor %}
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "blog/base.html" %}
+{% block content %}
+
+<!-- Categories Section -->
+<div class="categories-container">
+    <h2>Categories</h2>
+    <ul class="categories-list">
+        {% for category in categories %}
+            <li><a href="{% url 'category_posts' category.slug %}">{{ category.name }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+
+<!-- Recent Posts Section -->
+<h2>Recent Posts</h2>
+<div class="recent-posts">
+    {% for post in posts %}
+        <div class="recent-post">
+            <span class="category">{{ post.category.name }}</span>
+            <h3><a href="{% url 'blog_detail' post.slug %}">{{ post.title }}</a></h3>
+            <p>{{ post.content|truncatewords:30 }}</p>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

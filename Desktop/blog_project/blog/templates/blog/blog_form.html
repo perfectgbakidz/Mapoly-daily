@@ -1,0 +1,25 @@
+{% extends "blog/base.html" %}
+{% block content %}
+    <h2>{% if form.instance.pk %}Edit Post{% else %}New Post{% endif %}</h2>
+    
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <label for="id_title">Title:</label>
+        {{ form.title }}
+
+        <label for="id_content">Content:</label>
+        {{ form.content }}
+
+        <label for="id_category">Category:</label>
+        {{ form.category }}
+
+        <label for="id_image">Upload Image:</label>
+        {{ form.image }}
+
+        <label for="id_published">Publish Now:</label>
+        {{ form.published }}
+
+        <button type="submit">Save</button>
+    </form>
+{% endblock %}
