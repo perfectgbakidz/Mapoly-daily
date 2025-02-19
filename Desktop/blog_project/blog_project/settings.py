@@ -31,7 +31,8 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'ajaratfabiyi2001@gmail.com'  # Replace with your Gmail address
 EMAIL_HOST_PASSWORD = 'hvog bzrb vlbb ezbc'  # Use an App Password, not your real password
 
-
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Application definition
 
@@ -95,8 +96,7 @@ if os.getenv("RAILWAY_ENVIRONMENT"):
 
 
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
