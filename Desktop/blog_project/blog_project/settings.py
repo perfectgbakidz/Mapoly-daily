@@ -95,7 +95,16 @@ if os.getenv("RAILWAY_ENVIRONMENT"):
     DATABASES['default']['NAME'] = "/app/db.sqlite3"  # Store SQLite in Railway's /app/ folder
 
 
+# ✅ Add your Railway domain here
+ALLOWED_HOSTS = [
+    "127.0.0.1", 
+    "localhost", 
+    "mapolydaily.up.railway.app"
+]
 
+# ✅ Allow from environment variable (for flexibility)
+if os.getenv("ALLOWED_HOSTS"):
+    ALLOWED_HOSTS += os.getenv("ALLOWED_HOSTS").split(",")
 
 
 STATIC_URL = '/static/'
