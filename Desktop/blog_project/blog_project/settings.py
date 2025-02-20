@@ -15,6 +15,10 @@ from django.contrib.messages import constants as messages
 import os
 import dj_database_url
 from pathlib import Path
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+from cloudinary.storage import CloudinaryStorage
 
 MESSAGE_TAGS = {
     messages.DEBUG: 'debug',
@@ -104,6 +108,16 @@ ALLOWED_HOSTS = ["127.0.0.1", "localhost", "mapolydaily.up.railway.app"]
 if os.getenv("ALLOWED_HOSTS"):
     ALLOWED_HOSTS += os.getenv("ALLOWED_HOSTS").split(",")
 
+# ✅ Cloudinary Configuration
+cloudinary.config(
+    cloud_name=os.getenv("CLOUDINARY_CLOUD_NAME", "dgef7xolq"),
+    api_key=os.getenv("CLOUDINARY_API_KEY", "186336112784414"),
+    api_secret=os.getenv("CLOUDINARY_API_SECRET", "S2Ff6Mx7PsBxAYO-9wLUFe62Lnc"),
+    
+)
+
+# ✅ Use Cloudinary for media storage
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
