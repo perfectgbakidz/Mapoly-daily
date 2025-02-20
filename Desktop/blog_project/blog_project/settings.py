@@ -90,18 +90,11 @@ DATABASES = {
 
 
 if os.getenv("RAILWAY_ENVIRONMENT"):
-    DEBUG = False
-    ALLOWED_HOSTS = ["mapolydaily.up.railway.app", "127.0.0.1"]
     DATABASES['default']['NAME'] = "/app/db.sqlite3"  # Store SQLite in Railway's /app/ folder
 
 
 # ✅ Add your Railway domain here
-ALLOWED_HOSTS = [
-    "127.0.0.1", 
-    "localhost", 
-    "mapolydaily.up.railway.app"
-]
-
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "mapolydaily.up.railway.app"]
 # ✅ Allow from environment variable (for flexibility)
 if os.getenv("ALLOWED_HOSTS"):
     ALLOWED_HOSTS += os.getenv("ALLOWED_HOSTS").split(",")
@@ -125,7 +118,6 @@ SECRET_KEY = os.getenv("SECRET_KEY", "django-insecure-^w5e&o_(fa2!^+jqdnyvxw$iwe
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
 
 
 LOGGING_CONFIG = None 
